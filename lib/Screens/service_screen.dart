@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class ServiceScreen extends StatefulWidget {
-  // final id;
   final name;
 
   const ServiceScreen({
     Key? key,
-    // required this.id,
     required this.name,
   }) : super(key: key);
 
@@ -30,20 +28,13 @@ class _ServiceScreenState extends State<ServiceScreen> {
   final _serviceDoneController = TextEditingController();
   final _remarksController = TextEditingController();
   late UnitModel1? unit;
+
   DateTime selectedDate = DateTime.now();
 
   num balancehrstxt = 0;
 
   @override
   Widget build(BuildContext context) {
-    passedname = widget.name.toString();
-    var value = Hive.box<UnitModel1>('unit_db').values.toList().map(
-      (UnitModel1 unit) {
-        print(unit.name);
-      },
-    ).toList();
-
-
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -105,7 +96,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                   .toList()
                                   .map(
                                 (UnitModel1 unit) {
-                                  print('id is:- ' + unit.id.toString());
+                                  // print('id is:- ' + unit.id.toString());
 
                                   return DropdownMenuItem<UnitModel1>(
                                     value: unit,
@@ -119,12 +110,12 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                 },
                               ).toList(),
                               onChanged: <String>(newValue) {
-                                print(newValue.runtimeType);
+                                // print(newValue.runtimeType);
                                 setState(() {
                                   _selectedUnit = newValue.toString();
                                   newunit = newValue;
                                   type = newunit!.type.toString();
-                                  print(newunit.runtimeType);
+                                  // print(newunit.runtimeType);
                                 });
                                 return newValue;
                               },
@@ -160,7 +151,6 @@ class _ServiceScreenState extends State<ServiceScreen> {
             onTap: (newIndex) {
               setState(() {
                 _currentSelectionIndex = newIndex;
-                // print(newIndex);
                 navigationstatus(context);
               });
             },
@@ -179,7 +169,6 @@ class _ServiceScreenState extends State<ServiceScreen> {
     int b = 1;
 
     if (_currentSelectionIndex == a) {
-      //savestatus();
       onUpdateButtonClick(context);
     } else if (_currentSelectionIndex == b) {
       Navigator.pop(context);
@@ -187,60 +176,60 @@ class _ServiceScreenState extends State<ServiceScreen> {
   }
 
   Future<void> check() async {
-    final _name = widget.name;
-    final _replacementDate = _replaceDateController.text.trim();
-    // final _curReading = widget.currentreading;
-    // final _preReading = widget.prereading;
-    // // final _balanceHours = widget.balanceHrs;
-    // final _airPressure = widget.pressure;
-    // final _temperature = widget.temperature;
-    // final _current = widget.current;
-    // final _checkedBy = widget.checkedBy;
-    // final _stat = widget.status;
-    // final _type = widget.type;
-    // final _id = widget.id;
-    final _runningHrs = _runningHrsController.text.trim();
-    final _nextService = _nextServiceController.text.trim();
-    final _servicedBy = _serviceDoneController.text.trim();
-    final _remarks = _remarksController.text.trim();
+    final _name = newunit!.name;
+    final _curReading = newunit!.presentreading;
+    final _preReading = newunit!.prereading;
+    var _balanceHours = newunit!.balanceHrs;
+    final _airPressure = newunit!.airPressure;
+    final _temperature = newunit!.airendTemperature;
+    final _current = newunit!.motorCurrent;
+    final _checkedBy = newunit!.checkedBy;
+    final _stat = newunit!.status;
+    final _type = newunit!.type;
+    final _id = newunit!.id;
+    dynamic _replacementDate = _replaceDateController.text.trim();
+    dynamic _runningHrs = _runningHrsController.text.trim();
+    dynamic _nextService = _nextServiceController.text.trim();
+    dynamic _servicedBy = _serviceDoneController.text.trim();
+    dynamic _remarks = _remarksController.text.trim();
+
+    if (_replaceDateController.text.trim() == '') {
+      _replacementDate = newunit!.replacementDate;
+    }
+    if (_runningHrsController.text.trim() == '') {
+      _runningHrs = newunit!.runningHours;
+    }
+    if (_nextServiceController.text.trim() == '') {
+      _nextService = newunit!.nextService;
+    }
+    if (_serviceDoneController.text.trim() == '') {
+      _servicedBy = newunit!.servicedBy;
+    }
+    if (_remarksController.text.trim() == '') {
+      _remarks = newunit!.description;
+    }
   }
 
   Future<void> onUpdateButtonClick(BuildContext ctx) async {
-    final _name = widget.name;
+    final _name = newunit!.name;
+    final _curReading = newunit!.presentreading;
+    final _preReading = newunit!.prereading;
+    var _balanceHours = newunit!.balanceHrs;
+    final _airPressure = newunit!.airPressure;
+    final _temperature = newunit!.airendTemperature;
+    final _current = newunit!.motorCurrent;
+    final _checkedBy = newunit!.checkedBy;
+    final _stat = newunit!.status;
+    final _type = newunit!.type;
+    final _id = newunit!.id;
     final _replacementDate = _replaceDateController.text.trim();
-    // final _curReading = widget.currentreading;
-    // final _preReading = widget.prereading;
-    // // final _balanceHours = widget.balanceHrs;
-    // final _airPressure = widget.pressure;
-    // final _temperature = widget.temperature;
-    // final _current = widget.current;
-    // final _checkedBy = widget.checkedBy;
-    // final _stat = widget.status;
-    // final _type = widget.type;
-    // final _id = widget.id;
     final _runningHrs = _runningHrsController.text.trim();
     final _nextService = _nextServiceController.text.trim();
     final _servicedBy = _serviceDoneController.text.trim();
     final _remarks = _remarksController.text.trim();
 
-    // int balance = int.parse(widget.balanceHrs);
-    // balancehrstxt = int.parse(_nextService) - int.parse(_runningHrs);
-    // final _balanceHours = balancehrstxt.toString();
-    print(_name +
-        // _type +
-        // _id +
-        // _preReading +
-        // _balanceHours +
-        // _stat +
-        // _curReading +
-        // _airPressure +
-        // _temperature +
-        // _checkedBy +
-        _replacementDate +
-        _runningHrs +
-        _nextService +
-        _servicedBy +
-        _remarks);
+    balancehrstxt = int.parse(_nextService) - int.parse(_runningHrs);
+    _balanceHours = balancehrstxt.toString();
 
     if (_replacementDate.isEmpty) {
       String label = "'Replacement Date'";
@@ -265,24 +254,24 @@ class _ServiceScreenState extends State<ServiceScreen> {
       return;
     } else {
       final _status = UnitModel1(
-          // balanceHrs: _balanceHours,
+          balanceHrs: _balanceHours,
           name: _name,
-          // prereading: _preReading,
-          // presentreading: _curReading,
-          // type: _type,
-          // id: _id,
-          // status: _stat,
-          // airPressure: _airPressure,
-          // airendTemperature: _temperature,
-          // motorCurrent: _current,
-          // checkedBy: _checkedBy,
+          prereading: _preReading,
+          presentreading: _curReading,
+          type: _type,
+          id: _id,
+          status: _stat,
+          airPressure: _airPressure,
+          airendTemperature: _temperature,
+          motorCurrent: _current,
+          checkedBy: _checkedBy,
           replacementDate: _replacementDate,
           runningHours: _runningHrs,
           nextService: _nextService,
           servicedBy: _servicedBy,
           description: _remarks);
 
-      // updateUnit(widget.id, _status);
+      updateUnit(newunit!.id, _status);
     }
     Navigator.pop(ctx);
   }

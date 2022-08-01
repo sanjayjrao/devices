@@ -7,8 +7,6 @@ import 'package:devices/Screens/styles.dart';
 import 'package:devices/db/functions/db_functions.dart';
 import 'package:devices/db/model/data_model.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:hive_flutter/hive_flutter.dart';
 
 class UpdateScreen extends StatefulWidget {
   final name;
@@ -68,20 +66,20 @@ class _UpdateScreenState extends State<UpdateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.id);
+    // print(widget.id);
     var st = widget.stat;
-    print('start ' + st + '  ' + stati);
+    // print('start ' + st + '  ' + stati);
 
     if (st != stati && stati != 'Select') {
       st = stati;
-      print('inside ' + st);
+      // print('inside ' + st);
     } else {
       stati = st;
-      print('else ' + st + '  ' + stati);
+      // print('else ' + st + '  ' + stati);
     }
 
     int curreading = int.parse(widget.currentreading);
-    balancehrstxt = 3000 - curreading;
+    balancehrstxt = 1000000 - curreading;
     _preReadingController.text = curreading.toString();
     _balanceHoursController.text = balancehrstxt.toString();
     return WillPopScope(
@@ -89,13 +87,6 @@ class _UpdateScreenState extends State<UpdateScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: const Color.fromARGB(255, 115, 205, 247),
-        // appBar: AppBar(
-        //   centerTitle: true,
-        //   title: const Text(
-        //     'Daily Updates',
-        //     style: TextStyle(color: CupertinoColors.systemGrey5, fontSize: 25),
-        //   ),
-        // ),
         body: SafeArea(
           child: Container(
             decoration: BoxDecoration(
@@ -157,7 +148,6 @@ class _UpdateScreenState extends State<UpdateScreen> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8),
                           child: Row(
-                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Flexible(
                                 child: Padding(
@@ -184,8 +174,6 @@ class _UpdateScreenState extends State<UpdateScreen> {
                             ],
                           ),
                         ),
-                        // formFielddaily(
-                        //     'Motor Current', '', _motorCurrentController, true),
                         formFielddaily('Checked by', '', _checkedByController,
                             true, TextInputType.name),
                         Padding(
@@ -247,7 +235,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                                     _color;
                                     stati;
                                   });
-                                  print('stati ' + stati);
+                                  // print('stati ' + stati);
                                   return stati;
                                 },
                               ),
@@ -277,9 +265,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
           currentIndex: _currentSelectionIndex,
           onTap: (newIndex) {
             setState(() {
-              // build(ctx1);
               _currentSelectionIndex = newIndex;
-              // print(newIndex);
               navigationstatus(context, stati);
             });
           },
@@ -287,7 +273,6 @@ class _UpdateScreenState extends State<UpdateScreen> {
             BottomNavigationBarItem(icon: Icon(Icons.save_alt), label: 'Save'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.miscellaneous_services), label: 'Service'),
-            // BottomNavigationBarItem(icon: Icon(Icons.archive), label: 'Log'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.arrow_back), label: 'Back'),
           ],
@@ -317,24 +302,13 @@ class _UpdateScreenState extends State<UpdateScreen> {
     int b = 1;
     int c = 2;
     if (_currentSelectionIndex == a) {
-      //savestatus();
       onUpdateButtonClick(stati, context);
     } else if (_currentSelectionIndex == b) {
       print(stati);
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (ctx1) => ServiceScreen(
-            // id: widget.id,
             name: widget.name,
-            // type: widget.type,
-            // currentreading: widget.currentreading,
-            // balanceHrs: widget.hrs,
-            // prereading: widget.prereading,
-            // status: stati,
-            // pressure: _airpressureController.text.trim(),
-            // temperature: _airendTemperatureController.text.trim(),
-            // current: null,
-            // checkedBy: null,
           ),
         ),
       );
@@ -355,14 +329,14 @@ class _UpdateScreenState extends State<UpdateScreen> {
     final _temperature = _airendTemperatureController.text.trim();
     final _current = _motorCurrentController.text.trim();
     final _checked = _checkedByController.text.trim();
-    var _replacementDate = widget.replacementDate;
-    var _runningHrs = widget.runningHours;
-    var _nextService = widget.nextService;
-    var _servicedBy = widget.servicedBy;
-    var _description = widget.description;
+    var _replacementDate = widget.replacementDate.toString();
+    var _runningHrs = widget.runningHours.toString();
+    var _nextService = widget.nextService.toString();
+    var _servicedBy = widget.servicedBy.toString();
+    var _description = widget.description.toString();
 
     int curreading = int.parse(_currentReading);
-    balancehrstxt = 3000 - curreading;
+    balancehrstxt = 1000000 - curreading;
     _balanceHoursController.text = balancehrstxt.toString();
     final _balanceHours = _balanceHoursController.text.trim();
 
@@ -393,19 +367,14 @@ class _UpdateScreenState extends State<UpdateScreen> {
       return;
     } else if (_replacementDate == '') {
       _replacementDate = '0';
-      return;
     } else if (_runningHrs == '') {
       _runningHrs = '0';
-      return;
     } else if (_nextService == '') {
       _nextService = '0';
-      return;
     } else if (_servicedBy == '') {
       _servicedBy = 'nil';
-      return;
     } else if (_description == '') {
-      _description = '--';
-      return;
+      _description = 'nil';
     } else {
       final _status = UnitModel1(
         balanceHrs: _balanceHours,
@@ -427,7 +396,6 @@ class _UpdateScreenState extends State<UpdateScreen> {
       );
       updateUnit(widget.id, _status);
     }
-    // print(_balanceHours);
     Navigator.pop(ctx);
   }
 }

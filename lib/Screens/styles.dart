@@ -6,18 +6,9 @@ import 'package:devices/Screens/add_devices.dart';
 import 'package:devices/Screens/pdf_screen.dart';
 import 'package:devices/Screens/list_devices.dart';
 import 'package:devices/Screens/log_screen.dart';
-import 'package:devices/Screens/remarks_screen.dart';
 import 'package:devices/db/functions/db_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-// class TextTitle {
-//   String? title;
-
-//   TextTitle(String title) {
-//     this.title;
-//   }
-// }
 
 Column containerhome(BuildContext context) {
   return Column(
@@ -54,7 +45,6 @@ Column containerhome(BuildContext context) {
                 const PdfScreen(
                   path: '',
                 )),
-            // rowhome(context, 'Service', ServiceScreen()),
           ],
         ),
       ),
@@ -65,7 +55,6 @@ Column containerhome(BuildContext context) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // rowhome(context, 'Status', const StatusScreen()),
             rowhome(context, 'Log Check', const LogScreen()),
           ],
         ),
@@ -83,10 +72,7 @@ RawMaterialButton rowhome(BuildContext context, String name, Widget screen) {
     onPressed: () {
       onClicked(context, screen);
     },
-    // fillColor: Colors.lightBlue[400],
     fillColor: const Color.fromARGB(255, 29, 145, 223),
-    // fillColor: Color.fromARGB(255, 25, 143, 223),
-
     child: Text(
       name,
       textAlign: TextAlign.center,
@@ -113,7 +99,6 @@ Container devicetitle(String name, String type, String page, BuildContext ctx) {
   if (page == 'daily') {
     return Container(
       decoration: const BoxDecoration(
-        // color: Color.fromARGB(255, 255, 238, 0),
         color: Color.fromARGB(255, 76, 107, 245),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -164,7 +149,6 @@ Container devicetitle(String name, String type, String page, BuildContext ctx) {
   } else {
     return Container(
       decoration: const BoxDecoration(
-        // color: Color.fromARGB(255, 255, 238, 0),
         color: Color.fromARGB(255, 76, 107, 245),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -217,18 +201,14 @@ Container devicetitle(String name, String type, String page, BuildContext ctx) {
 
 Row formFielddaily(String label, String hint,
     TextEditingController textcontroller, bool condition, TextInputType input) {
-  // print(controller.toString());
-
   if (label == 'Air Pressure' ||
       label == 'Airend Temp' ||
       label == 'Motor Current') {
     return Row(
-      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
           child: Padding(
             padding: const EdgeInsetsDirectional.only(start: 30, top: 10),
-            // padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             child: Text(
               label,
               textAlign: TextAlign.left,
@@ -239,12 +219,10 @@ Row formFielddaily(String label, String hint,
         Flexible(
           child: Padding(
             padding: const EdgeInsetsDirectional.only(end: 50, top: 15),
-            // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             child: TextFormField(
               textAlign: TextAlign.center,
               enabled: condition,
               keyboardType: input,
-              // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               controller: textcontroller,
               decoration: InputDecoration(
                 contentPadding:
@@ -279,7 +257,6 @@ Row formFielddaily(String label, String hint,
               textAlign: TextAlign.center,
               enabled: condition,
               keyboardType: input,
-              // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               controller: textcontroller,
               decoration: InputDecoration(
                 contentPadding:
@@ -319,7 +296,6 @@ Row formFieldService(String label, String hint,
             enabled: condition,
             keyboardType: TextInputType.multiline,
             maxLines: lines,
-            // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             controller: textcontroller,
             decoration: InputDecoration(
               contentPadding:
@@ -356,19 +332,13 @@ Future alertMsg(BuildContext ctx, String label) {
       return AlertDialog(
         title: const Text("Alert"),
         content: Text("Please enter the $label."),
-        actions: const [
-          // TextButton(
-          //   child: const Text("OK"),
-          //   onPressed: () {},
-          // )
-        ],
+        actions: const [],
       );
     },
   );
 }
 
 Future deleteMsg(BuildContext ctx, var id) {
-  // var builder;
   return showDialog(
     context: ctx,
     builder: (ctx) {
@@ -386,7 +356,6 @@ Future deleteMsg(BuildContext ctx, var id) {
           TextButton(
               onPressed: () {
                 Navigator.of(ctx).pop();
-                // return;
               },
               child: const Text('Cancel'))
         ],

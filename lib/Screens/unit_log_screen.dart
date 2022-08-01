@@ -1,26 +1,39 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-// import 'package:devices/Screens/pdf_screen.dart';
-// import 'package:devices/Screens/list_devices.dart';
 import 'package:devices/Screens/styles.dart';
 import 'package:flutter/material.dart';
-// import 'package:hive/hive.dart';
-
-// import '../db/functions/db_functions.dart';
-// import '../db/model/data_model.dart';
 
 class UnitLogScreen extends StatefulWidget {
   final name;
   final type;
   final reading;
+  final status;
   final balancehrs;
   final pressure;
   final temperature;
   final current;
   final checkedby;
+  final replacedDate;
+  final runningHrs;
+  final nextService;
+  final servicedBy;
+  final description;
 
-  const UnitLogScreen(this.name, this.type, this.reading, this.balancehrs,
-      this.pressure, this.temperature, this.current, this.checkedby,
+  const UnitLogScreen(
+      this.name,
+      this.type,
+      this.reading,
+      this.status,
+      this.balancehrs,
+      this.pressure,
+      this.temperature,
+      this.current,
+      this.checkedby,
+      this.replacedDate,
+      this.runningHrs,
+      this.nextService,
+      this.servicedBy,
+      this.description,
       {Key? key})
       : super(key: key);
 
@@ -33,22 +46,34 @@ class _UnitLogScreenState extends State<UnitLogScreen> {
   final _namecontroller = TextEditingController();
   final _typecontroller = TextEditingController();
   final _readingcontroller = TextEditingController();
+  final _statuscontroller = TextEditingController();
   final _balancehrscontroller = TextEditingController();
   final _pressurecontroller = TextEditingController();
   final _temperaturecontroller = TextEditingController();
   final _currentcontroller = TextEditingController();
   final _checkedcontroller = TextEditingController();
+  final _replacementDatecontroller = TextEditingController();
+  final _runningHrscontroller = TextEditingController();
+  final _nextServicecontroller = TextEditingController();
+  final _ServicedBycontroller = TextEditingController();
+  final _Descriptioncontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     _namecontroller.text = widget.name;
     _typecontroller.text = widget.type;
     _readingcontroller.text = widget.reading;
+    _statuscontroller.text = widget.status;
     _balancehrscontroller.text = widget.balancehrs;
     _pressurecontroller.text = widget.pressure;
     _temperaturecontroller.text = widget.temperature;
     _currentcontroller.text = widget.current;
     _checkedcontroller.text = widget.checkedby;
+    _replacementDatecontroller.text = widget.replacedDate;
+    _runningHrscontroller.text = widget.runningHrs;
+    _nextServicecontroller.text = widget.nextService;
+    _ServicedBycontroller.text = widget.servicedBy;
+    _Descriptioncontroller.text = widget.description;
 
     return SimpleDialog(
       title: const Text(
@@ -106,6 +131,31 @@ class _UnitLogScreenState extends State<UnitLogScreen> {
               child: formFieldService(
                   'Checked by', 'hint', _checkedcontroller, true, 1),
             ),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: formFieldService(
+                  'Replaced Date', 'hint', _replacementDatecontroller, true, 1),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: formFieldService(
+                  'Running Hrs', 'hint', _runningHrscontroller, true, 1),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: formFieldService(
+                  'Next Service', 'hint', _nextServicecontroller, true, 1),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: formFieldService(
+                  'Serviced by', 'hint', _ServicedBycontroller, true, 1),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: formFieldService(
+                  'Remarks', 'hint', _Descriptioncontroller, true, 3),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -124,12 +174,6 @@ class _UnitLogScreenState extends State<UnitLogScreen> {
                     ),
                   ),
                 ),
-                // TextButton(
-                //   onPressed: () {
-                //     Navigator.pop(context);
-                //   },
-                //   child: const Text('Cancel'),
-                // ),
               ],
             ),
           ],
@@ -137,49 +181,4 @@ class _UnitLogScreenState extends State<UnitLogScreen> {
       ],
     );
   }
-
-  // SimpleDialog showlog() {
-  //   print(_selectedUnit);
-  //   return SimpleDialog(
-  //     title: Text(
-  //       'Log',
-  //       style: TextStyle(
-  //         color: Colors.lightBlueAccent,
-  //       ),
-  //     ),
-  //     shape: const RoundedRectangleBorder(
-  //       side: BorderSide(color: Colors.blueGrey, width: 2),
-  //       borderRadius: BorderRadius.all(
-  //         Radius.circular(20),
-  //       ),
-  //     ),
-  //     children: [
-  //       Padding(
-  //         padding: const EdgeInsets.all(15.0),
-  //         child: Column(
-  //           children: [
-  //             formFieldService('Name', 'hint', _namecontroller, true, 1),
-  //             Row(
-  //               children: [
-  //                 TextButton(
-  //                   onPressed: () {
-  //                     // onSaveButtonClick();
-  //                     Navigator.pop(context);
-  //                   },
-  //                   child: const Text('Save'),
-  //                 ),
-  //                 TextButton(
-  //                   onPressed: () {
-  //                     Navigator.pop(context);
-  //                   },
-  //                   child: const Text('Cancel'),
-  //                 ),
-  //               ],
-  //             ),
-  //           ],
-  //         ),
-  //       )
-  //     ],
-  //   );
-  // }
 }
